@@ -8,10 +8,14 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.exampleone.postapp.act.EditAdsAct
+import com.exampleone.postapp.adapters.AdsRcAdapter
 import com.exampleone.postapp.data.Ad
 import com.exampleone.postapp.database.DbManager
+import com.exampleone.postapp.database.ReadDataCallback
 import com.exampleone.postapp.databinding.ActivityMainBinding
 import com.exampleone.postapp.dialoghelper.DialogConst
 import com.exampleone.postapp.dialoghelper.DialogHelper
@@ -22,9 +26,11 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    ReadDataCallback {
     private lateinit var tvAccount: TextView
-    val dbManager = DbManager()
+    val dbManager = DbManager(this)
+    val adapter = AdsRcAdapter()
 
     private val rootElement by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -34,8 +40,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(rootElement.root)
         init()
+        initRecyclerView()
         dbManager.readDataFromDb()
 
 
@@ -93,6 +101,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tvAccount = rootElement.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
     }
 
+    private fun initRecyclerView() {
+        rootElement.apply {
+            mainContent.rcView.layoutManager = LinearLayoutManager(this@MainActivity)
+            mainContent.rcView.adapter = adapter
+        }
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
@@ -140,6 +155,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             user.email
         }
+    }
+
+    override fun readData(list: List<Ad>) {
+        adapter.updateAdapter(list)
     }
 
 }

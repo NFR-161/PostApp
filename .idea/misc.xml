@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/edit_image_bg.xml" value="0.1" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/edit_image_bg_normal.xml" value="0.16666666666666666" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/edit_image_bg_pressed.xml" value="0.1" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/edit_image_button.xml" value="0.1" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_add_image.xml" value="0.1235" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_def_image.xml" value="0.1" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_delete.xml" value="0.1" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_delete1.xml" value="0.1635" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_delete_ad.xml" value="0.1" />
@@ -18,6 +20,7 @@
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_eye.xml" value="0.127" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_fav_normal.xml" value="0.1" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_fav_pressed.xml" value="0.1" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_new_ads.xml" value="0.1635" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/activity_edit_ads.xml" value="0.25" />
         <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/activity_main.xml" value="0.22" />

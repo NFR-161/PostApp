@@ -3,6 +3,7 @@ package com.exampleone.postapp.frag
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,14 +65,11 @@ class SelectImageRvAdapter(private val adapterCallback: AdapterCallback) :
         fun setData(bitMap: Bitmap) {
 
             binding.imEditImage.setOnClickListener {
-                ImagePicker.getImages(
-                    context as EditAdsAct,
-                    1,
-                    ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGE
-                )
+                ImagePicker.launcher(context as EditAdsAct, context.launcherSingleSelectImage, 1)
                 context.editImagePos = adapterPosition
 
             }
+
             binding.imDeleteImage.setOnClickListener {
                 adapter.mainArray.removeAt(adapterPosition)
                 adapter.notifyItemRemoved(adapterPosition)

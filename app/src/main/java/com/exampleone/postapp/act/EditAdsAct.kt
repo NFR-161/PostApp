@@ -4,24 +4,22 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
+import com.exampleone.postapp.MainActivity
 import com.exampleone.postapp.R
 import com.exampleone.postapp.adapters.ImageAdapter
-import com.exampleone.postapp.data.Ad
-import com.exampleone.postapp.database.DbManager
+import com.exampleone.postapp.model.Ad
+import com.exampleone.postapp.model.DbManager
 import com.exampleone.postapp.databinding.ActivityEditAdsBinding
 import com.exampleone.postapp.dialogs.DialogSpinnerHelper
 import com.exampleone.postapp.frag.FragmentCloseInterface
 import com.exampleone.postapp.frag.ImageListFrag
 import com.exampleone.postapp.utils.CityHelper
-import com.exampleone.postapp.utils.ImageManager
 import com.exampleone.postapp.utils.ImagePicker
-import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
-import com.google.android.gms.ads.MobileAds
 
 
 class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
@@ -30,19 +28,38 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var imageAdapter: ImageAdapter
     var chooseImageFrag: ImageListFrag? = null
     var editImagePos = 0
-    private val dbManager = DbManager(null)
+    private val dbManager = DbManager()
+    var launcherMultiSelectImage: ActivityResultLauncher<Intent>? = null
+    var launcherSingleSelectImage: ActivityResultLauncher<Intent>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         rootElement = ActivityEditAdsBinding.inflate(layoutInflater)
         setContentView(rootElement.root)
         init()
+        checkEditState()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        ImagePicker.showSelectedImages(resultCode, requestCode, data, this)
+    private fun checkEditState() {
+        if (isEditState()) {
+            fillViews(intent.getSerializableExtra(MainActivity.ADS_DATA) as Ad)
+        }
+    }
 
+    private fun isEditState(): Boolean {
+        return intent.getBooleanExtra(MainActivity.EDIT_STATE, false)
+    }
+
+    private fun fillViews(ad: Ad) = with(rootElement) {
+        tvCountry.text = ad.country
+        tvCity.text = ad.city
+        editTel.setText(ad.tel)
+        editIndex.setText(ad.index)
+        checkBoxWithSending.isChecked = ad.withSending.toBoolean()
+        tvCat.text = ad.category
+        edTitle.setText(ad.title)
+        edPrice.setText(ad.price)
+        edDescription.setText(ad.description)
     }
 
     override fun onRequestPermissionsResult(
@@ -56,7 +73,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImagePicker.getImages(this, 3, ImagePicker.REQUEST_CODE_GET_IMAGES)
+                    // ImagePicker.getImages(this, 3, ImagePicker.REQUEST_CODE_GET_IMAGES)
                 } else {
                     Toast.makeText(
                         this,
@@ -72,6 +89,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     private fun init() {
         imageAdapter = ImageAdapter()
         rootElement.vpImages.adapter = imageAdapter
+        launcherMultiSelectImage = ImagePicker.getLauncherForMultiSelectImages(this)
+        launcherSingleSelectImage = ImagePicker.getLauncherForSingleImage(this)
 
     }
 
@@ -102,7 +121,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     fun onClickGetImages(view: View) {
         if (imageAdapter.mainArray.size == 0) {
-            ImagePicker.getImages(this, 3, ImagePicker.REQUEST_CODE_GET_IMAGES)
+            ImagePicker.launcher(this, launcherMultiSelectImage, 3)
 
         } else {
             openChooseImageFrag(null)
@@ -128,7 +147,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
                 edTitle.text.toString(),
                 edPrice.text.toString(),
                 edDescription.text.toString(),
-                dbManager.db.push().key
+                dbManager.db.push().key,
+                dbManager.auth.uid
             )
         }
         return ad

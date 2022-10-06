@@ -3,42 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/edit_image_bg.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/edit_image_bg_normal.xml" value="0.16666666666666666" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/edit_image_bg_pressed.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/edit_image_button.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_add_image.xml" value="0.1235" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_def_image.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_delete.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_delete1.xml" value="0.1635" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_delete_ad.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_delete_image.xml" value="0.1635" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_drag.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_edit.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_edit_ad.xml" value="0.15" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_eye.xml" value="0.127" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_fav_normal.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_fav_pressed.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/ic_new_ads.xml" value="0.1635" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/activity_edit_ads.xml" value="0.25" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/ad_list_item.xml" value="0.22" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/fragment_test.xml" value="0.14749893116716545" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/image_adapter_item.xml" value="0.22" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/list_image_frag.xml" value="0.22" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/main_activity.xml" value="0.17864583333333334" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/main_content.xml" value="0.16666666666666666" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/nav_header_main.xml" value="0.22" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/progress_dialog_layout.xml" value="0.22" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/select_image_frag_item.xml" value="0.22" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/sign_dialog.xml" value="0.22" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/sp_list_item.xml" value="0.22" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/spinner_layout.xml" value="0.22" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/menu/drawer_main_menu.xml" value="0.3333333333333333" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/menu/main_menu.xml" value="0.3333333333333333" />
-        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/menu/menu_choose_image.xml" value="0.16666666666666666" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.188" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/activity_main.xml" value="0.1796875" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/ad_list_item.xml" value="0.1796875" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/main_content.xml" value="0.1796875" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/nav_header_main.xml" value="0.1796875" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/progress_dialog_layout.xml" value="0.1796875" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/layout/select_image_frag_item.xml" value="0.1796875" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/menu/bottom_main_menu.xml" value="0.1796875" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/menu/drawer_main_menu.xml" value="0.1796875" />
+        <entry key="..\:/Android/SDK/AndroidDeveloper/PostApp/app/src/main/res/menu/main_menu.xml" value="0.1796875" />
       </map>
     </option>
   </component>

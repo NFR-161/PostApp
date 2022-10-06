@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -13,30 +14,31 @@ import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.exampleone.postapp.act.EditAdsAct
 import com.exampleone.postapp.adapters.AdsRcAdapter
-import com.exampleone.postapp.data.Ad
-import com.exampleone.postapp.database.DbManager
-import com.exampleone.postapp.database.ReadDataCallback
 import com.exampleone.postapp.databinding.ActivityMainBinding
 import com.exampleone.postapp.dialoghelper.DialogConst
 import com.exampleone.postapp.dialoghelper.DialogHelper
 import com.exampleone.postapp.dialoghelper.GoogleAccConst
+import com.exampleone.postapp.viewmodel.FireBaseViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    ReadDataCallback {
+
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var tvAccount: TextView
-    val dbManager = DbManager(this)
-    val adapter = AdsRcAdapter()
+
+    val mAuth = Firebase.auth
+    val adapter = AdsRcAdapter(this)
+    private val fireBaseViewModel: FireBaseViewModel by viewModels()
 
     private val rootElement by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
     private val dialogHelper = DialogHelper(this)
-    val mAuth = FirebaseAuth.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,24 +46,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(rootElement.root)
         init()
         initRecyclerView()
-        dbManager.readDataFromDb()
-
-
+        initViewModel()
+        fireBaseViewModel.loadAllAds()
+        bottomMenuOnClick()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.id_new_ads) {
-            val i = Intent(this, EditAdsAct::class.java)
-            startActivity(i)
-
-        }
-        return super.onOptionsItemSelected(item)
+    override fun onResume() {
+        super.onResume()
+        rootElement.mainContent.bNavView.selectedItemId = R.id.id_home
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return menu.let { super.onCreateOptionsMenu(it) }
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE) {
@@ -83,6 +77,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onStart() {
         super.onStart()
         uiUpdate(mAuth.currentUser)
+    }
+
+
+    private fun initViewModel() {
+        fireBaseViewModel.liveAdsData.observe(this) {
+            adapter.updateAdapter(it)
+        }
+    }
+
+    private fun bottomMenuOnClick() = with(rootElement) {
+        mainContent.bNavView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+
+                R.id.id_new_ad -> {
+                    val i = Intent(this@MainActivity, EditAdsAct::class.java)
+                    startActivity(i)
+
+                }
+                R.id.id_my_ads -> {
+                    fireBaseViewModel.loadMyAds()
+                    mainContent.toolbar.title = getString(R.string.ad_my_ads)
+                }
+                R.id.id_favs -> {
+
+                }
+                R.id.id_home -> {
+                    fireBaseViewModel.loadAllAds()
+                    mainContent.toolbar.title = getString(R.string.def)
+                }
+            }
+            true
+        }
+
+
     }
 
     private fun init() {
@@ -157,8 +185,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun readData(list: List<Ad>) {
-        adapter.updateAdapter(list)
-    }
+    companion object {
 
+        const val EDIT_STATE = "edit_state"
+        const val ADS_DATA = "ads_data"
+    }
 }

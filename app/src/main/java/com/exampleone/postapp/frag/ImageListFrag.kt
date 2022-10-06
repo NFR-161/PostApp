@@ -1,14 +1,11 @@
 package com.exampleone.postapp.frag
 
 import android.app.Activity
-import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -115,10 +112,9 @@ class ImageListFrag(
             }
             addImageItem?.setOnMenuItemClickListener {
                 val imageCount = ImagePicker.MAX_IMAGE_COUNT - adapter.mainArray.size
-                ImagePicker.getImages(
-                    context as AppCompatActivity,
-                    imageCount,
-                    ImagePicker.REQUEST_CODE_GET_IMAGES
+                ImagePicker.launcher(
+                    activity as EditAdsAct,
+                    (activity as EditAdsAct).launcherMultiSelectImage,imageCount
                 )
                 true
             }
@@ -127,6 +123,7 @@ class ImageListFrag(
 
     fun updateAdapter(newList: ArrayList<String>) {
         resizeSelectedImages(newList, false)
+
     }
 
     fun setSingleImage(uri: String, pos: Int) {

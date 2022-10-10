@@ -63,6 +63,7 @@ open class BaseAdsFrag : Fragment() {
                     interAd = ad
                 }
             })
+
     }
     fun showInterAd() {
         if (interAd != null) {

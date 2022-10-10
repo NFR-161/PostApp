@@ -151,13 +151,13 @@
                         android:layout_marginStart="5dp"
                         android:layout_weight="0"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="1200" />
+                        android:text="0" />
 
                     <ImageButton
                         android:id="@+id/ibFav"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="0"
                         android:background="@android:color/transparent"
                         app:srcCompat="@drawable/ic_fav_normal" />
@@ -168,8 +168,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_weight="0"
-                        android:text="300"
-                        android:fontFamily="sans-serif-condensed" />
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="0" />
                 </LinearLayout>
 
                 <LinearLayout

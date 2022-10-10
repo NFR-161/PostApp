@@ -3,7 +3,6 @@ package com.exampleone.postapp
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -18,6 +17,7 @@ import com.exampleone.postapp.databinding.ActivityMainBinding
 import com.exampleone.postapp.dialoghelper.DialogConst
 import com.exampleone.postapp.dialoghelper.DialogHelper
 import com.exampleone.postapp.dialoghelper.GoogleAccConst
+import com.exampleone.postapp.model.Ad
 import com.exampleone.postapp.viewmodel.FireBaseViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
@@ -27,7 +27,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    AdsRcAdapter.Listener {
     private lateinit var tvAccount: TextView
 
     val mAuth = Firebase.auth
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     mainContent.toolbar.title = getString(R.string.ad_my_ads)
                 }
                 R.id.id_favs -> {
-
+                    fireBaseViewModel.loadMyFavs()
                 }
                 R.id.id_home -> {
                     fireBaseViewModel.loadAllAds()
@@ -183,6 +184,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             user.email
         }
+
+    }
+
+    override fun onDeleteItem(ad: Ad) {
+        fireBaseViewModel.deleteItem(ad)
+
+    }
+
+    override fun onAdViewed(ad: Ad) {
+        fireBaseViewModel.adViewed(ad)
+    }
+
+    override fun onFavClicked(ad: Ad) {
+        fireBaseViewModel.onFavClick(ad)
     }
 
     companion object {

@@ -4,8 +4,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.exampleone.postapp.MainActivity
+import com.exampleone.postapp.R
 import com.exampleone.postapp.act.EditAdsAct
 import com.exampleone.postapp.model.Ad
 import com.exampleone.postapp.databinding.AdListItemBinding
@@ -29,9 +31,11 @@ class AdsRcAdapter(val act: MainActivity) : RecyclerView.Adapter<AdsRcAdapter.Ad
     }
 
     fun updateAdapter(newList: List<Ad>) {
+        val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(adArray, newList))
+        diffResult.dispatchUpdatesTo(this)
         adArray.clear()
         adArray.addAll(newList)
-        notifyDataSetChanged()
+
 
     }
 
@@ -43,8 +47,26 @@ class AdsRcAdapter(val act: MainActivity) : RecyclerView.Adapter<AdsRcAdapter.Ad
             tvDescription.text = ad.description
             tvPrice.text = ad.price
             tvTitle.text = ad.title
+            tvViewCounter.text = ad.viewsCounter
+            tvFavCounter.text = ad.favCounter
+
+            if (ad.isFav) {
+                ibFav.setImageResource(R.drawable.ic_fav_pressed)
+            } else {
+                ibFav.setImageResource(R.drawable.ic_fav_normal)
+            }
+
             showEditPanel(isOwner(ad))
+            ibFav.setOnClickListener {
+                act.onFavClicked(ad)
+            }
+            itemView.setOnClickListener {
+                act.onAdViewed(ad)
+            }
             ibEditAd.setOnClickListener(onClickEdit(ad))
+            ibDeleteAd.setOnClickListener {
+                act.onDeleteItem(ad)
+            }
         }
 
         fun onClickEdit(ad: Ad): View.OnClickListener {
@@ -73,4 +95,10 @@ class AdsRcAdapter(val act: MainActivity) : RecyclerView.Adapter<AdsRcAdapter.Ad
         }
     }
 
+    interface Listener {
+        fun onDeleteItem(ad: Ad)
+        fun onAdViewed(ad: Ad)
+        fun onFavClicked(ad: Ad)
+
+    }
 }

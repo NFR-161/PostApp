@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.exampleone.postapp.accounthelper.AccountHelper
 import com.exampleone.postapp.act.EditAdsAct
 import com.exampleone.postapp.adapters.AdsRcAdapter
 import com.exampleone.postapp.databinding.ActivityMainBinding
@@ -84,6 +86,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initViewModel() {
         fireBaseViewModel.liveAdsData.observe(this) {
             adapter.updateAdapter(it)
+            rootElement.mainContent.tvEmpty.visibility =
+                if (it.isEmpty()) View.VISIBLE else View.GONE
+
         }
     }
 
@@ -168,7 +173,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
             }
             R.id.id_sign_out -> {
-
+                if (mAuth.currentUser?.isAnonymous == true) {
+                    rootElement.drawerLayout.closeDrawer(GravityCompat.START)
+                    return true
+                }
                 uiUpdate(null)
                 mAuth.signOut()
                 dialogHelper.accHelper.signOutG()
@@ -179,10 +187,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun uiUpdate(user: FirebaseUser?) {
-        tvAccount.text = if (user == null) {
-            resources.getString(R.string.not_reg)
-        } else {
-            user.email
+        if (user == null) {
+            dialogHelper.accHelper.signInAnonymously(object : AccountHelper.Listener {
+                override fun onComplete() {
+                    tvAccount.text = "Гость"
+                }
+
+            })
+        } else if (user.isAnonymous) {
+            tvAccount.text = "Гость"
+        } else if (!user.isAnonymous) {
+            tvAccount.text = user.email
         }
 
     }
